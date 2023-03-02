@@ -25,6 +25,7 @@ type ClientStore struct {
 // ClientStoreItem data item
 type ClientStoreItem struct {
 	ID     string `db:"id"`
+	UserId string `db:"user_id"`
 	Secret string `db:"secret"`
 	Domain string `db:"domain"`
 	Data   []byte `db:"data"`
@@ -58,6 +59,7 @@ func (s *ClientStore) initTable() error {
 	return s.adapter.Exec(context.Background(), fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %[1]s (
 	id     TEXT  NOT NULL,
+	user_id      TEXT  NOT NULL,
 	secret TEXT  NOT NULL,
 	domain TEXT  NOT NULL,
 	data   JSONB NOT NULL,
@@ -95,8 +97,9 @@ func (s *ClientStore) Create(info oauth2.ClientInfo) error {
 
 	return s.adapter.Exec(
 		context.Background(),
-		fmt.Sprintf("INSERT INTO %s (id, secret, domain, data) VALUES ($1, $2, $3, $4)", s.tableName),
+		fmt.Sprintf("INSERT INTO %s (id, user_id, secret, domain, data) VALUES ($1, $2, $3, $4, $5)", s.tableName),
 		info.GetID(),
+		info.GetUserID(),
 		info.GetSecret(),
 		info.GetDomain(),
 		data,
