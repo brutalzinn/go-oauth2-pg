@@ -60,17 +60,6 @@ func main() {
 }
 ```
 
-## Testing
-
-Linter and tests are running for every Pul Request, but it is possible to run linter
-and tests locally using `docker` and `make`.
-
-Run linter: `make link`. This command runs liner in docker container with the project
-source code mounted.
-
-Run tests: `make test`. This command runs project dependencies in docker containers
-if they are not started yet and runs go tests with coverage.
-
 ## MIT License
 
 > Copyright (c) 2020 Vladimir Garvardt
