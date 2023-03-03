@@ -8,4 +8,5 @@ require (
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/stretchr/testify v1.8.2
 	github.com/vgarvardt/go-pg-adapter v1.0.0
+	github.com/vgarvardt/pgx-helpers/v4 v4.1.0 // indirect
 )

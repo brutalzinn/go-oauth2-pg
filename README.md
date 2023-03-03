@@ -13,7 +13,8 @@ so use corresponding version (go modules compliant)
 For `github.com/go-oauth2/oauth2/v4`:
 
 ```bash
-go get -u github.com/vgarvardt/go-oauth2-pg/v4
+go get -u github.com/brutalzinn/go-oauth2-pg/v4
+
 ```
 
 For `gopkg.in/oauth2.v3` see [v3 branch](https://github.com/vgarvardt/go-oauth2-pg/tree/v3).
@@ -36,7 +37,8 @@ import (
 
   "github.com/go-oauth2/oauth2/v4/manage"
   "github.com/jackc/pgx/v4"
-  pg "github.com/vgarvardt/go-oauth2-pg/v4"
+  pg "github.com/brutalzinn/go-oauth2-pg/v4
+"
   "github.com/vgarvardt/go-pg-adapter/pgx4adapter"
 )
 
