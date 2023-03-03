@@ -1,4 +1,4 @@
-module github.com/brutalzinn/go-oauth2-pg/m/v4
+module github.com/brutalzinn/go-oauth2-pg/v4
 
 go 1.20
 
