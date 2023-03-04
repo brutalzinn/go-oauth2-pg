@@ -59,7 +59,6 @@ func (s *ClientStore) initTable() error {
 	return s.adapter.Exec(context.Background(), fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %[1]s (
 	id     TEXT  NOT NULL,
-	user_id      TEXT  NOT NULL,
 	secret TEXT  NOT NULL,
 	domain TEXT  NOT NULL,
 	data   JSONB NOT NULL,
@@ -90,13 +89,18 @@ func (s *ClientStore) GetByID(ctx context.Context, id string) (oauth2.ClientInfo
 
 // Create creates and stores the new client information
 func (s *ClientStore) Create(info oauth2.ClientInfo) error {
+	data, err := json.Marshal(info)
+	if err != nil {
+		return err
+	}
+
 	return s.adapter.Exec(
 		context.Background(),
-		fmt.Sprintf("INSERT INTO %s (id, user_id, secret, domain, data) VALUES ($1, $2, $3, $4, $5)", s.tableName),
+		fmt.Sprintf("INSERT INTO %s (id, secret, domain, data) VALUES ($1, $2, $3, $4)", s.tableName),
 		info.GetID(),
-		info.GetUserID(),
 		info.GetSecret(),
 		info.GetDomain(),
+		data,
 	)
 }
 
