@@ -90,11 +90,6 @@ func (s *ClientStore) GetByID(ctx context.Context, id string) (oauth2.ClientInfo
 
 // Create creates and stores the new client information
 func (s *ClientStore) Create(info oauth2.ClientInfo) error {
-	data, err := json.Marshal(info)
-	if err != nil {
-		return err
-	}
-
 	return s.adapter.Exec(
 		context.Background(),
 		fmt.Sprintf("INSERT INTO %s (id, user_id, secret, domain, data) VALUES ($1, $2, $3, $4, $5)", s.tableName),
@@ -102,6 +97,29 @@ func (s *ClientStore) Create(info oauth2.ClientInfo) error {
 		info.GetUserID(),
 		info.GetSecret(),
 		info.GetDomain(),
+	)
+}
+
+// Remove  the client information
+func (s *ClientStore) Remove(info oauth2.ClientInfo) error {
+	return s.adapter.Exec(
+		context.Background(),
+		fmt.Sprintf("DELETE FROM %s WHERE id = $1", s.tableName),
+		info.GetID(),
+	)
+}
+
+// Update the client information
+func (s *ClientStore) Update(info oauth2.ClientInfo) error {
+	data, err := json.Marshal(info)
+	if err != nil {
+		return err
+	}
+	return s.adapter.Exec(
+		context.Background(),
+		fmt.Sprintf("UPDATE %s SET secret = $1, data = $2 WHERE id = $3", s.tableName),
+		info.GetSecret(),
 		data,
+		info.GetID(),
 	)
 }
