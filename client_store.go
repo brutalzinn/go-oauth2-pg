@@ -112,7 +112,7 @@ func (s *ClientStore) Remove(info oauth2.ClientInfo) error {
 	)
 }
 
-// Update the client information
+// Update the client information test
 func (s *ClientStore) Update(info oauth2.ClientInfo) error {
 	data, err := json.Marshal(info)
 	if err != nil {
