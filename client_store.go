@@ -120,7 +120,7 @@ func (s *ClientStore) Update(info oauth2.ClientInfo) error {
 	}
 	return s.adapter.Exec(
 		context.Background(),
-		fmt.Sprintf("UPDATE FROM %s SET secret = $1, domain = $2 data = $3 WHERE id = $4", s.tableName),
+		fmt.Sprintf("UPDATE %s SET secret = $1, domain = $2, data = $3 WHERE id = $4", s.tableName),
 		info.GetSecret(),
 		info.GetDomain(),
 		data,
