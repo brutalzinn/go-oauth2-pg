@@ -25,7 +25,6 @@ type ClientStore struct {
 // ClientStoreItem data item
 type ClientStoreItem struct {
 	ID     string `db:"id"`
-	UserId string `db:"user_id"`
 	Secret string `db:"secret"`
 	Domain string `db:"domain"`
 	Data   []byte `db:"data"`
@@ -121,7 +120,7 @@ func (s *ClientStore) Update(info oauth2.ClientInfo) error {
 	}
 	return s.adapter.Exec(
 		context.Background(),
-		fmt.Sprintf("UPDATE %s SET secret = $1, domain = $2 data = $3 WHERE id = $4", s.tableName),
+		fmt.Sprintf("UPDATE FROM %s SET secret = $1, domain = $2 data = $3 WHERE id = $4", s.tableName),
 		info.GetSecret(),
 		info.GetDomain(),
 		data,
